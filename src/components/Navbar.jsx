@@ -7,7 +7,7 @@ export default function Navbar() {
         <div className="flex items-center space-x-4 p-0.5">
           <a href="#" 
             className="hover:underline">English
-           </a>
+          </a>
           <div className="w-px h-6 bg-gray-600 rounded-full" aria-hidden="true"></div>
           <SunIcon className="w-5 h-5 hover:text-orange-400" />
         </div>
