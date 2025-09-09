@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import Cap from "./components/cap";
+import Home from "./pages/Dashboard/Home";
 import Login from "./pages/SignIn/Login";
 import ForgotPassword from "./pages/SignIn/ForgotPassword";
 import OTP from "./pages/SignIn/OTP";
@@ -38,7 +38,9 @@ function App() {
             <Route path="/profile" element={<ProfileSetup />} />
             <Route path="/funds" element={<OriginOfFunds />} />
             <Route path="/reasons" element={<Reasons />} />
-            <Route path="/details" element={<ChkDetails />} />  
+            <Route path="/details" element={<ChkDetails />} />
+            <Route path="/home" element={<Home />} />
+             
 
           </Routes> 
         </div>

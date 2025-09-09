@@ -9,7 +9,7 @@ export default function NewPin() {
         
         <p className="text-center text-gray-400 mb-8 text-sm">
           You will use this PIN to perform secure actions
-        </p>
+        </p>;
 
         {/* Code inputs */}
         <div className="flex justify-between mb-8">

@@ -42,7 +42,7 @@ export default function Login() {
               </div>
             </div>
 
-            <Link to="/otp">
+            <Link to="/home">
               <button
               type="submit"
               className="w-full bg-yellow-500 text-black py-3 rounded-md mt-6 font-semibold hover:bg-yellow-600 transition"
