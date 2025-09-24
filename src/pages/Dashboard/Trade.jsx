@@ -5,7 +5,7 @@ import { Bitcoin, CircleDollarSign, Coins, DollarSign, Copy} from "lucide-react"
 
 
 
-export default function Home() {
+export default function Trade() {
   // Chart data
   const data = [
     { name: "Ethereum", value: 1000, color: "#627EEA", percentage: "92.25%" },

@@ -5,7 +5,7 @@ import { Bitcoin, CircleDollarSign, Coins, DollarSign, Copy} from "lucide-react"
 
 
 
-export default function Home() {
+export default function Wallets() {
   // Chart data
   const data = [
     { name: "Ethereum", value: 1000, color: "#627EEA", percentage: "92.25%" },
@@ -100,9 +100,6 @@ export default function Home() {
 
   return (
     <div className="flex flex-col bg-[#1a1a1a] text-white min-h-screen">
-        {/* <div className="flex-1 flex flex-col"> */}
-          {/* Dummy Navbar */}    
-
         {/* Main + Aside wrapper */}
         <div className="flex flex-1 overflow-hidden">
           {/* Main Content */}
@@ -183,7 +180,7 @@ export default function Home() {
                 </section>
 
               {/*Grid Box*/}
-              <section className="grid grid-cols-2 gap-5">
+              <section className="grid grid-cols-3 gap-5">
                 {/* Wallets-Grid 1 */}
                 <div className="bg-[#111111]  p-6 rounded-xl shadow">
                   <div className="flex justify-between items-center mb-4">
@@ -225,188 +222,86 @@ export default function Home() {
                 </div>
 
                   {/*Grid 2*/}
-                  <div className="grid grid-cols-1 gap-6">
-                      {/* Rewards */}
-                      <div className="bg-[#111111] p-3 rounded-xl shadow flex text-center items-center justify-center">
-                          <div className="flex flex-col items-center justify-center">
-                              <div className="w-20 h-20 bg-purple-400 rounded-full flex items-center justify-center mb-3">
-                                  🎉
-                              </div>
-                              <p className="text-xs font-bold text-yellow-500 mb-4">Share your invite code</p>
-                              <div className="flex justify-between gap-2">
-                                <p className="text-2xl font-semibold text-white mb-4">2SG6ZM</p>
-                                <p className="text-yellow-500 cursor-pointer"><Copy /></p>
-                              </div>
-
-                              <p className="text-gray-400 text-sm">Get NGN250 in Bitcoin for both you and your friend</p>
-                          </div>
-                      </div>
-                      {/* Open Orders */}
-                      <div className="bg-[#111111] p-6 rounded-xl shadow">
-                        <div className="flex justify-between mb-4">
-                          <h2 className="text-lg font-semibold mb-4">Open orders</h2>
-                          <span className="text-gray-400 text-xl cursor-pointer hover:text-gray-200">
-                            &gt;
-                          </span>
-                        </div>
-
-                        
-                        <div className="mb-3 ">
-                          <div className="flex justify-between items-center text-sm font-medium mb-3">
-                            <span>BTC/USDT</span>
-                            <span className="text-gray-400">01-26 18:55:34</span>
-                          </div>
-                          <p className="text-gray-400 text-sm mt-1">
-                            Stop Limit / <span className="text-green-500">Buy</span>
-                          </p>
-                        </div>
-
-                        <div className="space-y-2 text-sm">
-                          <div className="flex justify-between">
-                            <span className="text-gray-400">Price</span>
-                            <span className="text-white font-medium">36511.87</span>
-                          </div>
-                          <div className="flex justify-between">
-                            <span className="text-gray-400">Amount</span>
-                            <span className="text-white font-medium">3.459</span>
-                          </div>
-                          <div className="flex justify-between">
-                            <span className="text-gray-400">Filled</span>
-                            <span className="text-white font-medium">0.00%</span>
-                          </div>
-                          <div className="flex justify-between">
-                            <span className="text-gray-400">Total</span>
-                            <span className="text-white font-medium">126294.55833000001</span>
-                          </div>
-                        </div>
-
-                        <button className="mt-6 w-1/3 py-1 rounded bg-gray-700 text-white font-medium hover:bg-gray-600 transition">
-                          Cancel
-                        </button>
-                      </div>                
+                <div className="bg-[#111111]  p-6 rounded-xl shadow">
+                  <div className="flex justify-between items-center mb-4">
+                    <h2 className="text-lg font-semibold">Wallets</h2>
+                    <span className="text-gray-400 text-sm cursor-pointer hover:text-gray-200">
+                      &gt;
+                    </span>
                   </div>
+
+                  {wallets.map((section, idx) => (
+                    <div key={idx} className="mb-6">
+                      <h3 className="text-gray-400 text-xs uppercase mb-2">
+                        {section.category}
+                      </h3>
+                      <ul className="space-y-3">
+                        {section.items.map((wallet, i) => (
+                          <li
+                            key={i}
+                            className="flex justify-between items-center text-sm text-gray-200"
+                          >
+                            {/* Left Side */}
+                            <div className="flex items-center space-x-2">
+                              {wallet.icon}
+                              <span>{wallet.name}</span>
+                            </div>
+
+                            {/* Right Side */}
+                            <div className="text-right">
+                              <p className="font-medium">{wallet.balance}</p>
+                              {wallet.subBalance && (
+                                <p className="text-xs text-gray-400">{wallet.subBalance}</p>
+                              )}
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+
+                {/*Grid 3*/}
+                <div className="bg-[#111111]  p-6 rounded-xl shadow">
+                  <div className="flex justify-between items-center mb-4">
+                    <h2 className="text-lg font-semibold">Wallets</h2>
+                    <span className="text-gray-400 text-sm cursor-pointer hover:text-gray-200">
+                      &gt;
+                    </span>
+                  </div>
+
+                  {wallets.map((section, idx) => (
+                    <div key={idx} className="mb-6">
+                      <h3 className="text-gray-400 text-xs uppercase mb-2">
+                        {section.category}
+                      </h3>
+                      <ul className="space-y-3">
+                        {section.items.map((wallet, i) => (
+                          <li
+                            key={i}
+                            className="flex justify-between items-center text-sm text-gray-200"
+                          >
+                            {/* Left Side */}
+                            <div className="flex items-center space-x-2">
+                              {wallet.icon}
+                              <span>{wallet.name}</span>
+                            </div>
+
+                            {/* Right Side */}
+                            <div className="text-right">
+                              <p className="font-medium">{wallet.balance}</p>
+                              {wallet.subBalance && (
+                                <p className="text-xs text-gray-400">{wallet.subBalance}</p>
+                              )}
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
             </section>
-          </main>
-          
-          {/* Right Column (Market Prices) */}
-          <aside className="w-72 space-y-6 shadow overflow-y-auto">
-                {/* Market Tabs */}        
-                <section className="bg-[#111111] p-4 rounded-xl shadow">
-                  <div className="flex space-x-2 mb-4">
-                    <button className="px-3 py-1 text-xs font-semibold bg-yellow-500 text-black rounded">
-                      Hot
-                    </button>
-                    <button className="px-3 py-1 text-xs font-semibold bg-[#2a2a2a] text-gray-300 rounded hover:bg-[#333]">
-                      Gainers
-                    </button>
-                    <button className="px-3 py-1 text-xs font-semibold bg-[#2a2a2a] text-gray-300 rounded hover:bg-[#333]">
-                      Losers
-                    </button>
-                    <button className="px-3 py-1 text-xs font-semibold bg-[#2a2a2a] text-gray-300 rounded hover:bg-[#333]">
-                      24h Vol
-                    </button>
-                  </div>
-
-                  {/* Market List */}
-                  <div className="text-sm">
-                    <div className="flex justify-between text-gray-400 mb-2">
-                      <span>Pair</span>
-                      <span>Details</span>
-                    </div>
-
-                    <ul className="space-y-2">
-                      {marketData.map((item, index) => (
-                        <li
-                          key={index}
-                          className="flex justify-between items-center bg-[#222] px-2 py-1 rounded"
-                        >
-                          {/* Pair */}
-                          <span className="text-white w-20">{item.pair}</span>
-
-                          {/* Sparkline */}
-                          <div className="w-24 h-6">
-                            <Sparklines data={item.chart} svgWidth={80} svgHeight={20}>
-                              <SparklinesLine
-                                color={item.color.includes("green") ? "limegreen" : "red"}
-                                style={{ fill: "none" }}
-                              />
-                            </Sparklines>
-                          </div>
-
-                          {/* Price & Change */}
-                          <span className={`${item.color} font-semibold text-right`}>
-                            {item.price} {item.change}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </section>
-
-
-                <section>
-                  {/* Devices */}
-                  <div className="bg-[#111111]  p-4 rounded-xl shadow">
-                    
-                    <div className="flex justify-between items-center mb-4">
-                      <h2 className="text-lg font-semibold text-white">Devices</h2>
-                      <span className="text-gray-400 text-xl cursor-pointer hover:text-gray-200">
-                        &gt;
-                      </span>
-                    </div>
-
-                    {/* Devices List */}
-                    <ul className="divide-y divide-gray-700 text-sm text-gray-300">
-                      {[
-                        {
-                          browser: "Chrome V103.0.0.0 (Mac OS)",
-                          location: "Lagos, Nigeria",
-                          ip: "102.89.43.116",
-                          date: "2022-07-10 20:13:37",
-                        },
-                        {
-                          browser: "Chrome V103.0.0.0 (Mac OS)",
-                          location: "Lagos, Nigeria",
-                          ip: "102.89.43.116",
-                          date: "2022-07-10 20:13:37",
-                        },
-                        {
-                          browser: "Chrome V103.0.0.0 (Mac OS)",
-                          location: "Lagos, Nigeria",
-                          ip: "102.89.43.116",
-                          date: "2022-07-10 20:13:37",
-                        },
-                        {
-                          browser: "Chrome V103.0.0.0 (Mac OS)",
-                          location: "Lagos, Nigeria",
-                          ip: "102.89.43.116",
-                          date: "2022-07-10 20:13:37",
-                        },
-                        {
-                          browser: "Chrome V103.0.0.0 (Mac OS)",
-                          location: "Lagos, Nigeria",
-                          ip: "102.89.43.116",
-                          date: "2022-07-10 20:13:37",
-                        },
-                      ].map((device, idx) => (
-                        <li
-                          key={idx}
-                          className="flex justify-between py-3 hover:bg-[#2a2a2a] px-2 rounded transition"
-                        >
-                          <div>
-                            <h3 className="font-semibold text-white">{device.browser}</h3>
-                            <p className="text-xs text-gray-400">{device.location}</p>
-                          </div>
-                          <div className="text-right">
-                            <p className="text-xs">{device.ip}</p>
-                            <p className="text-gray-400">{device.date}</p>
-                          </div>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </section>
-          </aside>
+          </main>  
         </div>
     </div>
   );

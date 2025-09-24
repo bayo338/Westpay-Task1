@@ -1,5 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Dashboard/Home";
+import Trade from "./pages/Dashboard/Trade";
+import Wallets from "./pages/Dashboard/Wallets";
 import Login from "./pages/SignIn/Login";
 import ForgotPassword from "./pages/SignIn/ForgotPassword";
 import OTP from "./pages/SignIn/OTP";
@@ -35,8 +37,13 @@ function App() {
         <Route path="/reasons" element={<MainLayout><Reasons /></MainLayout>} />
         <Route path="/details" element={<MainLayout><ChkDetails /></MainLayout>} />
 
-        {/* Dashboard routes (no Navbar + Footer) */}
-        <Route path="/home" element={<DashboardLayout><Home /></DashboardLayout>} />
+        {/* Dashboard (with static sidebar + dynamic content) */}
+        <Route path="/" element={<DashboardLayout />}>
+          <Route path="home" element={<Home />} />
+          {/* You can add more dynamic pages here */}
+          <Route path="trade" element={<Trade />} />
+          <Route path="wallets" element={<Wallets />} />
+        </Route>
       </Routes>
     </Router>
   );
