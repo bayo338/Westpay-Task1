@@ -4,7 +4,7 @@ import { FaCreditCard, FaPaperPlane, FaArrowDownLong } from "react-icons/fa6";
 import { MdSell } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { Bitcoin, CircleDollarSign, Coins, DollarSign, Copy} from "lucide-react";
-
+import { SunIcon, BellIcon } from '@heroicons/react/24/solid';
 
 
 // Slide-in drawer component
@@ -393,6 +393,44 @@ export default function Wallets() {
 
   return (
     <div className="bg-[#1a1a1a] text-white min-h-screen">
+      {/* Dummy Navbar */}
+      <nav className="flex items-center justify-between px-6 py-4 text-sm text-gray-300">
+            <div className="flex items-center space-x-4">
+              <Link to="#" className="hover:text-orange-400">
+                <span>Market</span>
+              </Link>
+              <div className="w-px h-5 bg-gray-600" aria-hidden="true"></div>
+              <Link to="#" className="hover:text-orange-400 flex items-center space-x-1">
+              <span>Trade</span>
+              <svg
+              className="ml-1 w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              >
+              <path d="M19 9l-7 7-7-7" />
+              </svg>
+              {/* Dropdown */}
+              <div className="absolute hidden group-hover:block mt-2 bg-gray-800 text-gray-300 rounded shadow-lg w-32">
+                <a href="#" className="block px-4 py-2 hover:bg-gray-700">Spot</a>
+                <a href="#" className="block px-4 py-2 hover:bg-gray-700">Futures</a>
+              </div>
+            </Link>
+            <div className="w-px h-6 bg-gray-600" aria-hidden="true"></div>
+            <Link className="flex hover:text-orange-400">
+              <span>Savings</span>
+            </Link>
+            </div>
+            
+            <div className="flex items-center space-x-4 p-0.5">
+              <BellIcon className="w-5 h-5 hover:text-orange-400" />
+              <div className="w-px h-6 bg-gray-600" aria-hidden="true"></div>
+              <a href="#" className="hover:text-orange-400">English</a>
+              <div className="w-px h-6 bg-gray-600" aria-hidden="true"></div>
+              <SunIcon className="w-5 h-5 hover:text-orange-400" />
+            </div>
+          </nav>
         {/* Main + Aside wrapper */}
         <div className="flex flex-1 overflow-hidden">
           {/* Main Content */}
