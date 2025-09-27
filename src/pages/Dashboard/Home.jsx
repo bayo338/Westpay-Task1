@@ -19,7 +19,8 @@ export default function Home() {
       category: "Local currency",
       items: [
         {
-          name: "Nigerian Naira",
+          name: "NGN",
+          subName: "Nigerian Naira",
           icon: <CircleDollarSign className="text-yellow-500" />,
           balance: "NGN 1,020,000.63",
         },
@@ -30,12 +31,14 @@ export default function Home() {
       items: [
         {
           name: "BTC Savings Wallet",
+          subName: "Bitcoin",
           icon: <Bitcoin className="text-yellow-500" />,
           balance: "BTC 102.63",
           subBalance: "NGN 80,000.39",
         },
         {
           name: "ETH Savings Wallet",
+          subName: "Etherum",
           icon: <Coins className="text-blue-400" />,
           balance: "ETH 4.278899",
           subBalance: "NGN 321,888.53",
@@ -47,36 +50,42 @@ export default function Home() {
       items: [
         {
           name: "BTC",
+          subName: "Bitcoin",
           icon: <Bitcoin className="text-yellow-500" />,
           balance: "BTC 102.63",
           subBalance: "NGN 89,000.39",
         },
         {
           name: "ETH",
+          subName: "Etherum",
           icon: <Coins className="text-blue-400" />,
           balance: "ETH 4.278899",
           subBalance: "NGN 5,271.88",
         },
         {
           name: "LTC",
+          subName: "Litecoin",
           icon: <DollarSign className="text-gray-300" />,
           balance: "LTC 5.762489",
           subBalance: "NGN 211,088.35",
         },
         {
           name: "XRP",
+          subName: "Ripple",
           icon: <CircleDollarSign className="text-sky-400" />,
           balance: "XRP 5000.00",
           subBalance: "NGN 5,000.53",
         },
         {
           name: "USDT",
+          subName: "Tether",
           icon: <Coins className="text-green-400" />,
           balance: "USDT 5000.00",
           subBalance: "NGN 5,000.63",
         },
         {
           name: "BCH",
+          subName: "Bitcoin Cash",
           icon: <DollarSign className="text-orange-400" />,
           balance: "BCH 0.020598",
           subBalance: "NGN 0.00",
@@ -99,10 +108,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="flex flex-col bg-[#1a1a1a] text-white min-h-screen">
-        {/* <div className="flex-1 flex flex-col"> */}
-          {/* Dummy Navbar */}    
-
+    <div className="bg-[#1a1a1a] text-white min-h-screen">  
         {/* Main + Aside wrapper */}
         <div className="flex flex-1 overflow-hidden">
           {/* Main Content */}
@@ -112,7 +118,7 @@ export default function Home() {
                   {/* Header */}
                   <div className="flex justify-between items-center mb-6">
                     <h2 className="text-lg font-semibold">Balance details</h2>
-                    <div className="space-x-2">
+                    <div className="flex space-x-2">
                       <button className="bg-yellow-500 text-black px-6 py-1 rounded-md font-medium hover:bg-yellow-600 transition">
                         Buy Crypto
                       </button>
@@ -207,7 +213,10 @@ export default function Home() {
                             {/* Left Side */}
                             <div className="flex items-center space-x-2">
                               {wallet.icon}
-                              <span>{wallet.name}</span>
+                              <div>
+                                <span>{wallet.name}</span>
+                                <p className="text-xs text-gray-400">{wallet.subName}</p>
+                              </div>
                             </div>
 
                             {/* Right Side */}

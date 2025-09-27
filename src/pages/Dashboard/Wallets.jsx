@@ -1,82 +1,368 @@
+import { useState } from "react";
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
+import { FaCreditCard, FaPaperPlane, FaArrowDownLong } from "react-icons/fa6";
+import { MdSell } from "react-icons/md";
 import { Link } from "react-router-dom";
-import { Sparklines, SparklinesLine } from "react-sparklines";
 import { Bitcoin, CircleDollarSign, Coins, DollarSign, Copy} from "lucide-react";
 
 
 
+// Slide-in drawer component
+function SavingDrawer({ saving, onClose }) {
+  if (!saving) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex">
+      {/* Overlay */}
+      <div
+        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+        onClick={onClose}
+      >
+      </div>
+      
+      {/* Drawer */}
+      <div className="relative w-96 bg-[#111111] p-3 h-full shadow-lg animate-slideInLeft">
+        <div className="text-right">
+          <button
+            onClick={onClose}
+            className="text-gray-400 hover:text-white text-lg"
+          >
+            ✕
+          </button>
+        </div>
+        
+        {/* Header */}
+        <div className="flex flex-col items-center space-y-3 mb-4">
+          {crypto.icon}
+          <div className="text-center gap-2">
+            <h2 className="text-xl font-bold">{saving.balance}</h2>
+            <p className="text-gray-400">{saving.subName}</p>
+          </div>
+        </div>
+
+        {/* Buttons */}
+        <div className="flex justify-center space-x-2 mb-6">
+          <button className="flex items-center gap-2 bg-yellow-500 text-black px-4 py-1 text-xs rounded font-medium hover:bg-yellow-600 transition">
+            <FaCreditCard /> Buy
+          </button>
+          <button className="flex items-center gap-2 bg-gray-700 text-white px-4 py-1 text-xs rounded font-medium hover:bg-gray-600 transition">
+            <MdSell /> Sell
+          </button>
+          <button className="flex items-center gap-2 bg-gray-700 text-white px-4 py-1 text-xs rounded font-medium hover:bg-gray-600 transition">
+            <FaPaperPlane /> Send
+          </button>
+        </div>
+
+        {/* Example balances */}
+        <div className="space-y-4">
+          <div>
+            <p className="text-xs text-gray-400">Balance</p>
+            <p>BTC 0.0451112</p>
+          </div>
+          <div>
+            <p className="text-xs text-gray-400">Available</p>
+            <p>BTC 0.0451112</p>
+          </div>
+          <div>
+            <p className="text-xs text-gray-400">Pending</p>
+            <p>BTC 0.0000001</p>
+          </div>
+        </div>
+
+        {/* Transactions */}
+        <div className="mt-6">
+          <h3 className="text-sm font-semibold mb-2">Pending</h3>
+          <ul className="space-y-3 text-xs text-gray-300">
+            <li className="flex justify-between">
+              <span className="text-green-500">✔ BTC +0.0009</span>
+              <span>23 January</span>
+            </li>
+            <li className="flex justify-between">
+              <span className="text-red-500">✘ BTC -0.0011</span>
+              <span>21 January</span>
+            </li>
+            <li className="flex justify-between">
+              <span className="text-green-500">✔ BTC +0.0500</span>
+              <span>20 January</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function CryptoDrawer({ crypto, onClose }) {
+  if (!crypto) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex">
+      {/* Overlay */}
+      <div
+        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+        onClick={onClose}
+      >
+      </div>
+      
+      {/* Drawer */}
+      <div className="relative w-96 bg-[#111111] p-3 h-full shadow-lg animate-slideInLeft">
+        <div className="text-right">
+          <button
+            onClick={onClose}
+            className="text-gray-400 hover:text-white text-lg"
+          >
+            ✕
+          </button>
+        </div>
+        
+        {/* Header */}
+        <div className="flex flex-col items-center space-y-3 mb-4">
+          {crypto.icon}
+          <div className="text-center gap-2">
+            <h2 className="text-xl font-bold">{crypto.balance}</h2>
+            <p className="text-gray-400">{crypto.subName}</p>
+          </div>
+        </div>
+
+        {/* Buttons */}
+        <div className="flex justify-center space-x-2 mb-6">
+          <button className="flex items-center gap-2 bg-yellow-500 text-black px-4 py-1 text-xs rounded font-medium hover:bg-yellow-600 transition">
+            <FaCreditCard /> Buy
+          </button>
+          <button className="flex items-center gap-2 bg-gray-700 text-white px-4 py-1 text-xs rounded font-medium hover:bg-gray-600 transition">
+            <MdSell /> Sell
+          </button>
+          <button className="flex items-center gap-2 bg-gray-700 text-white px-4 py-1 text-xs rounded font-medium hover:bg-gray-600 transition">
+            <FaPaperPlane /> Send
+          </button>
+        </div>
+
+        {/* Example balances */}
+        <div className="space-y-4">
+          <div>
+            <p className="text-xs text-gray-400">Balance</p>
+            <p>BTC 0.0451112</p>
+          </div>
+          <div>
+            <p className="text-xs text-gray-400">Available</p>
+            <p>BTC 0.0451112</p>
+          </div>
+          <div>
+            <p className="text-xs text-gray-400">Pending</p>
+            <p>BTC 0.0000001</p>
+          </div>
+        </div>
+
+        {/* Transactions */}
+        <div className="mt-6">
+          <h3 className="text-sm font-semibold mb-2">Pending</h3>
+          <ul className="space-y-3 text-xs text-gray-300">
+            <li className="flex justify-between">
+              <span className="text-green-500">✔ BTC +0.0009</span>
+              <span>23 January</span>
+            </li>
+            <li className="flex justify-between">
+              <span className="text-red-500">✘ BTC -0.0011</span>
+              <span>21 January</span>
+            </li>
+            <li className="flex justify-between">
+              <span className="text-green-500">✔ BTC +0.0500</span>
+              <span>20 January</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function LocalDrawer({ local, onClose }) {
+  if (!local) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex">
+      {/* Overlay */}
+      <div
+        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+        onClick={onClose}
+      >
+      </div>
+      
+      {/* Drawer */}
+      <div className="relative w-96 bg-[#111111] p-3 h-full shadow-lg animate-slideInLeft">
+        <div className="text-right">
+          <button
+            onClick={onClose}
+            className="text-gray-400 hover:text-white text-lg"
+          >
+            ✕
+          </button>
+        </div>
+        
+        {/* Header */}
+        <div className="flex flex-col items-center space-y-3 mb-4">
+          {local.icon}
+          <div className="text-center gap-2">
+            <h2 className="text-xl font-bold">{local.balance}</h2>
+            <p className="text-gray-400">{local.subName}</p>
+          </div>
+        </div>
+
+        {/* Buttons */}
+        <div className="flex justify-center space-x-2 mb-6">
+          <button className="flex items-center gap-2 bg-yellow-500 text-black px-4 py-1 text-xs rounded font-medium hover:bg-yellow-600 transition">
+            <FaCreditCard /> Buy
+          </button>
+          <button className="flex items-center gap-2 bg-gray-700 text-white px-4 py-1 text-xs rounded font-medium hover:bg-gray-600 transition">
+            <MdSell /> Sell
+          </button>
+          <button className="flex items-center gap-2 bg-gray-700 text-white px-4 py-1 text-xs rounded font-medium hover:bg-gray-600 transition">
+            <FaPaperPlane /> Send
+          </button>
+        </div>
+
+        {/* Example balances */}
+        <div className="space-y-4">
+          <div>
+            <p className="text-xs text-gray-400">Balance</p>
+            <p>BTC 0.0451112</p>
+          </div>
+          <div>
+            <p className="text-xs text-gray-400">Available</p>
+            <p>BTC 0.0451112</p>
+          </div>
+          <div>
+            <p className="text-xs text-gray-400">Pending</p>
+            <p>BTC 0.0000001</p>
+          </div>
+        </div>
+
+        {/* Transactions */}
+        <div className="mt-6">
+          <h3 className="text-sm font-semibold mb-2">Pending</h3>
+          <ul className="space-y-3 text-xs text-gray-300">
+            <li className="flex justify-between">
+              <span className="text-green-500">✔ BTC +0.0009</span>
+              <span>23 January</span>
+            </li>
+            <li className="flex justify-between">
+              <span className="text-red-500">✘ BTC -0.0011</span>
+              <span>21 January</span>
+            </li>
+            <li className="flex justify-between">
+              <span className="text-green-500">✔ BTC +0.0500</span>
+              <span>20 January</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
+
+
+
+
 export default function Wallets() {
+
+  const [selectedSavings, setSelectedSavings] = useState(null);
+  const [selectedCrypto, setSelectedCrypto] = useState(null);
+  const [selectedLocal, setSelectedLocal] = useState(null);
+
   // Chart data
   const data = [
-    { name: "Ethereum", value: 1000, color: "#627EEA", percentage: "92.25%" },
-    { name: "Bitcoin", value: 0.045, color: "#F7931A", percentage: "0.00%"  },
-    { name: "USDT", value: 80, color: "#26A17B", percentage: "7.38%"  },
-    { name: "Other", value: 4, color: "#AAAAAA", percentage: "0.37%"  },
+    { name: "Local currency", value: 1000, color: "#f59e0b", percentage: "92.25%" },  // Orange
+    { name: "Cryptocurrency", value: 1000, color: "#3b82f6", percentage: "92.25%"}, // Blue
+    { name: "Savings", value: 1000, color: "#ec4899", percentage: "92.25%"},        // Pink
   ];
 
-  const wallets = [
-    {
-      category: "Local currency",
-      items: [
-        {
-          name: "Nigerian Naira",
-          icon: <CircleDollarSign className="text-yellow-500" />,
-          balance: "NGN 1,020,000.63",
-        },
-      ],
-    },
+  const savings = [
     {
       category: "Savings",
       items: [
         {
           name: "BTC Savings Wallet",
+          subName: "Bitcoin",
           icon: <Bitcoin className="text-yellow-500" />,
           balance: "BTC 102.63",
           subBalance: "NGN 80,000.39",
         },
         {
           name: "ETH Savings Wallet",
+          subName: "Etherum",
+          icon: <Coins className="text-blue-400" />,
+          balance: "ETH 4.278899",
+          subBalance: "NGN 321,888.53",
+        },
+        {
+          name: "ETH Savings Wallet",
+          subName: "Etherum",
+          icon: <Coins className="text-blue-400" />,
+          balance: "ETH 4.278899",
+          subBalance: "NGN 321,888.53",
+        },
+        {
+          name: "ETH Savings Wallet",
+          subName: "Etherum",
+          icon: <Coins className="text-blue-400" />,
+          balance: "ETH 4.278899",
+          subBalance: "NGN 321,888.53",
+        },
+        {
+          name: "ETH Savings Wallet",
+          subName: "Etherum",
           icon: <Coins className="text-blue-400" />,
           balance: "ETH 4.278899",
           subBalance: "NGN 321,888.53",
         },
       ],
     },
+  ];
+
+  const cryptocurrency = [
     {
       category: "Cryptocurrency",
       items: [
         {
           name: "BTC",
+          subName: "Bitcoin",
           icon: <Bitcoin className="text-yellow-500" />,
           balance: "BTC 102.63",
           subBalance: "NGN 89,000.39",
         },
         {
           name: "ETH",
+          subName: "Etherum",
           icon: <Coins className="text-blue-400" />,
           balance: "ETH 4.278899",
           subBalance: "NGN 5,271.88",
         },
         {
           name: "LTC",
+          subName: "Litecoin",
           icon: <DollarSign className="text-gray-300" />,
           balance: "LTC 5.762489",
           subBalance: "NGN 211,088.35",
         },
         {
           name: "XRP",
+          subName: "Ripple",
           icon: <CircleDollarSign className="text-sky-400" />,
           balance: "XRP 5000.00",
           subBalance: "NGN 5,000.53",
         },
         {
           name: "USDT",
+          subName: "Tether",
           icon: <Coins className="text-green-400" />,
           balance: "USDT 5000.00",
           subBalance: "NGN 5,000.63",
         },
         {
           name: "BCH",
+          subName: "Bitcoin Cash",
           icon: <DollarSign className="text-orange-400" />,
           balance: "BCH 0.020598",
           subBalance: "NGN 0.00",
@@ -85,21 +371,28 @@ export default function Wallets() {
     },
   ];
 
-    // Mock sparkline data
-  const marketData = [
-    { pair: "BNB/USDT", price: "102.63", change: "+1.41%", color: "text-green-500", chart: [100, 102, 101, 103, 102, 104] },
-    { pair: "ETH/USDT", price: "3982.67", change: "+0.62%", color: "text-green-500", chart: [3900, 3920, 3960, 3980, 4000, 3983] },
-    { pair: "XRP/USDT", price: "182.37", change: "-1.24%", color: "text-red-500", chart: [185, 183, 184, 182, 181, 182] },
-    { pair: "FTM/USDT", price: "212.63", change: "+1.77%", color: "text-green-500", chart: [210, 211, 212, 213, 212, 213] },
-    { pair: "DOT/USDT", price: "22.14", change: "-2.89%", color: "text-red-500", chart: [23, 22.5, 22.3, 22.1, 22, 21.9] },
-        { pair: "ETH/USDT", price: "3982.67", change: "+0.62%", color: "text-green-500", chart: [3900, 3920, 3960, 3980, 4000, 3983] },
-    { pair: "XRP/USDT", price: "182.37", change: "-1.24%", color: "text-red-500", chart: [185, 183, 184, 182, 181, 182] },
-    { pair: "FTM/USDT", price: "212.63", change: "+1.77%", color: "text-green-500", chart: [210, 211, 212, 213, 212, 213] },
-    { pair: "DOT/USDT", price: "22.14", change: "-2.89%", color: "text-red-500", chart: [23, 22.5, 22.3, 22.1, 22, 21.9] },
+  const localcurrency = [
+    {
+      category: "Currency",
+      items: [
+        {
+          name: "NGN",
+          subName: "Nigerian Naira",
+          icon: <CircleDollarSign className="text-yellow-500" />,
+          balance: "NGN 1,020,000.63",
+        },
+        {
+          name: "NGN",
+          subName: "Nigerian Naira",
+          icon: <CircleDollarSign className="text-yellow-500" />,
+          balance: "NGN 1,020,000.63",
+        },
+      ],
+    },
   ];
 
   return (
-    <div className="flex flex-col bg-[#1a1a1a] text-white min-h-screen">
+    <div className="bg-[#1a1a1a] text-white min-h-screen">
         {/* Main + Aside wrapper */}
         <div className="flex flex-1 overflow-hidden">
           {/* Main Content */}
@@ -108,74 +401,87 @@ export default function Wallets() {
             <section className="bg-[#111111] p-6 rounded-xl shadow">
                   {/* Header */}
                   <div className="flex justify-between items-center mb-6">
-                    <h2 className="text-lg font-semibold">Balance details</h2>
-                    <div className="space-x-2">
-                      <button className="bg-yellow-500 text-black px-6 py-1 rounded-md font-medium hover:bg-yellow-600 transition">
-                        Buy Crypto
+                    <h2 className="text-lg font-semibold">Wallets Overview</h2>
+                    <div className="flex space-x-2">
+                      <button className="flex items-center gap-2 bg-yellow-500 text-black px-4 py-1 rounded font-medium hover:bg-yellow-600 transition">
+                        <FaCreditCard /> Buy
                       </button>
-                      <button className="bg-gray-700 text-white px-6 py-1 rounded-md font-medium hover:bg-gray-600 transition">
-                        Deposit
+                      <button className="flex items-center gap-2 bg-gray-700 text-white px-4 py-1 rounded font-medium hover:bg-gray-600 transition">
+                        <MdSell /> Sell
+                      </button>
+                      <button className="flex items-center gap-2 bg-gray-700 text-white px-4 py-1 rounded font-medium hover:bg-gray-600 transition">
+                        <FaPaperPlane /> Send
+                      </button>
+                      <button className="flex items-center gap-2 bg-gray-700 text-white px-4 py-1 rounded font-medium hover:bg-gray-600 transition">
+                        <FaArrowDownLong /> Receive
                       </button>
                     </div>
                   </div>
 
                   {/* Content */}
-                  <div className="flex items-center space-x-12">
+                  <div className="flex justify-between items-center space-x-12">
                     <div>
-                      <p className="text-sm text-gray-400">Account balance:</p>
-                      <p className="text-2xl font-bold mt-1">0.0003890811 BTC</p>
-                      <p className="text-sm text-gray-400 mt-4">Estimated value:</p>
-                      <p className="text-xl font-semibold mt-1">$900.56</p>
-                    </div>
-                    {/* Chart */}
-                    <div className="w-56 h-56">
-                      <ResponsiveContainer width="100%" height="100%">
-                        <PieChart>
-                          <Pie
-                            data={data}
-                            cx="50%"
-                            cy="50%"
-                            innerRadius={60}
-                            outerRadius={90}
-                            paddingAngle={3}
-                            dataKey="value"
-                          >
-                            {data.map((entry, index) => (
-                              <Cell key={`cell-${index}`} fill={entry.color} />
-                            ))}
-                          </Pie>
-                          <Tooltip />
-                        </PieChart>
-                      </ResponsiveContainer>
+                      <p className="text-sm text-gray-400 mb-1">Combined Wallet Value:</p>
+                      <p className="text-2xl font-bold mb-6">$9.0003.11</p>
+
+                      <button className="border border-dashed border-yellow-800 px-24 py-2 rounded-md text-yellow-600 font-medium hover:bg-yellow-500 drop-shadow-xl bg-[#1a1a1a] hover:text-black transition">
+                        Add a wallet
+                        <p className="text-yellow-800 text-xs mt-1">Expand your portfolio</p>
+                      </button>
                     </div>
 
-                    {/* Balance Info */}
-                    <div>
-                      {/* Breakdown */}
-                      <ul className="mt-6 space-y-2 text-sm w-48">
-                        {data.map((item) => (
-                          <li
-                            key={item.name}
-                            className="flex justify-between items-center"
-                          >
-                            <span className="flex items-center space-x-2">
-                              <span
-                                className="inline-block w-3 h-3 rounded-full"
-                                style={{ background: item.color }}></span>
-                              <span>{item.name}</span>
-                              <span className="text-gray-400">
-                                {item.value} |
-                              </span>
-                              <span className="text-gray-400">
-                                {item.percentage}
-                              </span>
+                    {/* Chart + Label*/}
+                    <div className="flex space-x-4">
+                      <div className="w-56 h-56">
+                        <ResponsiveContainer width="100%" height="100%">
+                          <PieChart>
+                            <Pie
+                              data={data}
+                              cx="50%"
+                              cy="50%"
+                              innerRadius={60}
+                              outerRadius={90}
+                              paddingAngle={3}
+                              dataKey="value"
+                            >
+                              {data.map((entry, index) => (
+                                <Cell key={`cell-${index}`} fill={entry.color} />
+                              ))}
+                            </Pie>
+                            <Tooltip />
+                          </PieChart>
+                        </ResponsiveContainer>
+                      </div>
 
-                            </span>
-                            
-                          </li>
-                        ))}
-                      </ul>
+                      {/* Balance Info */}
+                      <div class>
+                        {/* Breakdown */}
+                        <ul className="mt-6 space-y-2 text-sm w-50">
+                          {data.map((item) => (
+                            <li
+                              key={item.name}
+                              className="flex justify-between items-center"
+                            >
+                              <span className="flex items-center space-x-2">
+                                <span
+                                  className="inline-block w-3 h-3 rounded-full"
+                                  style={{ background: item.color }}></span>
+                                <span>{item.name}</span>
+                                <span className="text-gray-400">
+                                  {item.value} |
+                                </span>
+                                <span className="text-gray-400">
+                                  {item.percentage}
+                                </span>
+
+                              </span>
+                              
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     </div>
+
                   </div>
                 </section>
 
@@ -185,33 +491,35 @@ export default function Wallets() {
                 <div className="bg-[#111111]  p-6 rounded-xl shadow">
                   <div className="flex justify-between items-center mb-4">
                     <h2 className="text-lg font-semibold">Wallets</h2>
-                    <span className="text-gray-400 text-sm cursor-pointer hover:text-gray-200">
-                      &gt;
-                    </span>
                   </div>
 
-                  {wallets.map((section, idx) => (
+                  {savings.map((section, idx) => (
                     <div key={idx} className="mb-6">
-                      <h3 className="text-gray-400 text-xs uppercase mb-2">
+                      <h3 className="text-gray-400 text-xs mb-2 flex justify-between">
                         {section.category}
+                        <p>Balance</p>
                       </h3>
                       <ul className="space-y-3">
-                        {section.items.map((wallet, i) => (
+                        {section.items.map((saving, i) => (
                           <li
                             key={i}
-                            className="flex justify-between items-center text-sm text-gray-200"
+                            onClick={() => setSelectedSavings(saving)}
+                            className="flex justify-between items-center text-sm text-gray-200 cursor-pointer hover:bg-gray-800 p-2 rounded"
                           >
                             {/* Left Side */}
                             <div className="flex items-center space-x-2">
-                              {wallet.icon}
-                              <span>{wallet.name}</span>
+                              {saving.icon}
+                              <div>
+                                <span>{saving.name}</span>
+                                <p className="text-xs text-gray-400">{saving.subName}</p>
+                              </div>
                             </div>
 
                             {/* Right Side */}
                             <div className="text-right">
-                              <p className="font-medium">{wallet.balance}</p>
-                              {wallet.subBalance && (
-                                <p className="text-xs text-gray-400">{wallet.subBalance}</p>
+                              <p className="font-medium">{saving.balance}</p>
+                              {saving.subBalance && (
+                                <p className="text-xs text-gray-400">{saving.subBalance}</p>
                               )}
                             </div>
                           </li>
@@ -225,33 +533,35 @@ export default function Wallets() {
                 <div className="bg-[#111111]  p-6 rounded-xl shadow">
                   <div className="flex justify-between items-center mb-4">
                     <h2 className="text-lg font-semibold">Wallets</h2>
-                    <span className="text-gray-400 text-sm cursor-pointer hover:text-gray-200">
-                      &gt;
-                    </span>
                   </div>
 
-                  {wallets.map((section, idx) => (
+                  {cryptocurrency.map((section, idx) => (
                     <div key={idx} className="mb-6">
-                      <h3 className="text-gray-400 text-xs uppercase mb-2">
+                      <h3 className="text-gray-400 text-xs mb-2 flex justify-between">
                         {section.category}
+                        <p>Balance</p>
                       </h3>
                       <ul className="space-y-3">
-                        {section.items.map((wallet, i) => (
+                        {section.items.map((crypto, i) => (
                           <li
                             key={i}
-                            className="flex justify-between items-center text-sm text-gray-200"
+                            onClick={() => setSelectedCrypto(crypto)}
+                            className="flex justify-between items-center text-sm text-gray-200 cursor-pointer hover:bg-gray-800 p-2 rounded"
                           >
                             {/* Left Side */}
                             <div className="flex items-center space-x-2">
-                              {wallet.icon}
-                              <span>{wallet.name}</span>
+                              {crypto.icon}
+                              <div>
+                                <span>{crypto.name}</span>
+                                <p className="text-xs text-gray-400">{crypto.subName}</p>
+                              </div>                    
                             </div>
 
                             {/* Right Side */}
                             <div className="text-right">
-                              <p className="font-medium">{wallet.balance}</p>
-                              {wallet.subBalance && (
-                                <p className="text-xs text-gray-400">{wallet.subBalance}</p>
+                              <p className="font-medium">{crypto.balance}</p>
+                              {crypto.subBalance && (
+                                <p className="text-xs text-gray-400">{crypto.subBalance}</p>
                               )}
                             </div>
                           </li>
@@ -265,33 +575,35 @@ export default function Wallets() {
                 <div className="bg-[#111111]  p-6 rounded-xl shadow">
                   <div className="flex justify-between items-center mb-4">
                     <h2 className="text-lg font-semibold">Wallets</h2>
-                    <span className="text-gray-400 text-sm cursor-pointer hover:text-gray-200">
-                      &gt;
-                    </span>
                   </div>
 
-                  {wallets.map((section, idx) => (
+                  {localcurrency.map((section, idx) => (
                     <div key={idx} className="mb-6">
-                      <h3 className="text-gray-400 text-xs uppercase mb-2">
+                      <h3 className="text-gray-400 text-xs mb-2 flex justify-between">
                         {section.category}
+                        <p>Balance</p>
                       </h3>
                       <ul className="space-y-3">
-                        {section.items.map((wallet, i) => (
+                        {section.items.map((local, i) => (
                           <li
                             key={i}
-                            className="flex justify-between items-center text-sm text-gray-200"
-                          >
+                            onClick={() => setSelectedLocal(local)}   
+                            className="flex justify-between items-center text-sm text-gray-200 cursor-pointer hover:bg-gray-800 p-2 rounded"
+                            >
                             {/* Left Side */}
                             <div className="flex items-center space-x-2">
-                              {wallet.icon}
-                              <span>{wallet.name}</span>
+                              {local.icon}
+                              <div>
+                                <span>{local.name}</span>
+                                <p className="text-xs text-gray-400">{local.subName}</p>
+                              </div>
                             </div>
 
                             {/* Right Side */}
                             <div className="text-right">
-                              <p className="font-medium">{wallet.balance}</p>
-                              {wallet.subBalance && (
-                                <p className="text-xs text-gray-400">{wallet.subBalance}</p>
+                              <p className="font-medium">{local.balance}</p>
+                              {local.subBalance && (
+                                <p className="text-xs text-gray-400">{local.subBalance}</p>
                               )}
                             </div>
                           </li>
@@ -301,7 +613,12 @@ export default function Wallets() {
                   ))}
                 </div>
             </section>
-          </main>  
+          </main>
+
+           {/* Drawer */}
+        <CryptoDrawer crypto={selectedCrypto} onClose={() => setSelectedCrypto(null)} />
+        <SavingDrawer saving={selectedSavings} onClose={() => setSelectedSavings(null)} />
+        <LocalDrawer local={selectedLocal} onClose={() => setSelectedLocal(null)} />   
         </div>
     </div>
   );

@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Dashboard/Home";
 import Trade from "./pages/Dashboard/Trade";
 import Wallets from "./pages/Dashboard/Wallets";
+import Gifts from "./pages/Dashboard/Gifts";
 import Login from "./pages/SignIn/Login";
 import ForgotPassword from "./pages/SignIn/ForgotPassword";
 import OTP from "./pages/SignIn/OTP";
@@ -42,6 +43,7 @@ function App() {
           <Route path="home" element={<Home />} />
           {/* You can add more dynamic pages here */}
           <Route path="trade" element={<Trade />} />
+          <Route path="gifts" element={<Gifts />} />
           <Route path="wallets" element={<Wallets />} />
         </Route>
       </Routes>
