@@ -58,8 +58,8 @@ function App() {
     <Router>
       <Routes>
         {/* Routes that use MainLayout (with Navbar + Footer) */}
-        <Route path="/signup" element={<MainLayout><SignUp setUser={setUser} /></MainLayout>} />
-        <Route path="/login" element={<MainLayout><Login setUser={setUser} /></MainLayout>} />
+        <Route path="/signup" element={<MainLayout>{user ? <Navigate to="/" /> : <SignUp setUser={setUser} />}</MainLayout>} />
+        <Route path="/login" element={<MainLayout>{user ? <Navigate to="/" /> :<Login setUser={setUser} />}</MainLayout>} />
         <Route path="/forgot-password" element={<MainLayout><ForgotPassword /></MainLayout>} />
         <Route path="/otp" element={<MainLayout><OTP /></MainLayout>} />
         <Route path="/new-password" element={<MainLayout><NewPassword /></MainLayout>} />
@@ -74,7 +74,7 @@ function App() {
         <Route path="*" element={<NotFound />} />
 
         {/* Dashboard (with static sidebar + dynamic content) */}
-        <Route path="/" element={<DashboardLayout user={user} error={error} />}>
+        <Route path="/" element={<DashboardLayout user={user} error={error} setUser={setUser} />}>
           <Route path="home" element={<Home />} />
           {/* You can add more dynamic pages here */}
           <Route path="trade" element={<Trade />} />

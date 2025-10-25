@@ -1,4 +1,4 @@
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import {
   Home as HomeIcon,
   Wallet as WalletIcon,
@@ -13,14 +13,14 @@ export default function DashboardLayout({ user, error, setUser}) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user) {
+    if (user && window.location.pathname === "/") {
       navigate("/home", { replace: true });
     }
   }, [user, navigate]);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    // setUser(null);
+    setUser(null);
     navigate("/login");
   };
   return (
@@ -49,29 +49,69 @@ export default function DashboardLayout({ user, error, setUser}) {
             </div>
 
             <nav className="space-y-4">
-              <Link to="/home" className="flex items-center space-x-2 hover:text-yellow-500">
+              <NavLink
+                to="/home"
+                className={({ isActive }) =>
+                  `flex items-center space-x-2 hover:text-yellow-500 ${
+                    isActive ? "text-yellow-500" : "text-white"
+                  }`
+                }
+              >
                 <HomeIcon size={18} /> <span>Dashboard</span>
-              </Link>
-              <Link to="/trade" className="flex items-center space-x-2 hover:text-yellow-500">
+              </NavLink>
+
+              <NavLink
+                to="/trade"
+                className={({ isActive }) =>
+                  `flex items-center space-x-2 hover:text-yellow-500 ${
+                    isActive ? "text-yellow-500" : "text-white"
+                  }`
+                }
+              >
                 <BarChart2 size={18} /> <span>Trade</span>
-              </Link>
-              <Link to="/wallets" className="flex items-center space-x-2 hover:text-yellow-500">
+              </NavLink>
+
+              <NavLink
+                to="/wallets"
+                className={({ isActive }) =>
+                  `flex items-center space-x-2 hover:text-yellow-500 ${
+                    isActive ? "text-yellow-500" : "text-white"
+                  }`
+                }
+              >
                 <WalletIcon size={18} /> <span>Wallets</span>
-              </Link>
-              <Link to="/gifts" className="flex items-center space-x-2 hover:text-yellow-500">
+              </NavLink>
+
+              <NavLink
+                to="/gifts"
+                className={({ isActive }) =>
+                  `flex items-center space-x-2 hover:text-yellow-500 ${
+                    isActive ? "text-yellow-500" : "text-white"
+                  }`
+                }
+              >
                 <Gift size={18} /> <span>Gifts</span>
-              </Link>
-              <Link to="/profile" className="flex items-center space-x-2 hover:text-yellow-500">
+              </NavLink>
+
+              <NavLink
+                to="/profile"
+                className={({ isActive }) =>
+                  `flex items-center space-x-2 hover:text-yellow-500 ${
+                    isActive ? "text-yellow-500" : "text-white"
+                  }`
+                }
+              >
                 <User2 size={18} /> <span>Profile</span>
-              </Link>
+              </NavLink>
+
               <button
                 onClick={handleLogout}
                 className="flex items-center space-x-2 text-red-500 hover:text-yellow-500 w-full cursor-pointer"
-            >
-              <LogOut size={18} /> <span>Logout</span>
-            </button>
-
+              >
+                <LogOut size={18} /> <span>Logout</span>
+              </button>
             </nav>
+
           </aside>
 
           {/* Main content */}
