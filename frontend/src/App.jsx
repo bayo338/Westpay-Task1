@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/Dashboard/Home";
 import Trade from "./pages/Dashboard/Trade";
 import Wallets from "./pages/Dashboard/Wallets";
@@ -18,14 +18,48 @@ import Reasons from "./pages/SignUp/Reasons";
 import ChkDetails from "./pages/SignUp/ChkDetails";
 import MainLayout from "./layouts/MainLayout";
 import DashboardLayout from "./layouts/DashboardLayout";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import NotFound from "./components/NotFound";
 
 function App() {
+  const [user, setUser] = useState(null);
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+  console.log(user);
+  useEffect(() => {
+    const fetchUser = async () => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        try {
+          const res = await axios.get("/api/users/me", {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+          setUser(res.data);
+        } catch (err) {
+          setError("Failed to fetch user data");
+          localStorage.removeItem("token");
+        }
+      }
+      setIsLoading(false);
+    };
+    fetchUser();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+        <div className="text-xl text-white">Loading...</div>
+      </div>
+    );
+  }
+
   return (
     <Router>
       <Routes>
         {/* Routes that use MainLayout (with Navbar + Footer) */}
-        <Route path="/" element={<MainLayout><SignUp /></MainLayout>} />
-        <Route path="/login" element={<MainLayout><Login /></MainLayout>} />
+        <Route path="/signup" element={<MainLayout><SignUp setUser={setUser} /></MainLayout>} />
+        <Route path="/login" element={<MainLayout><Login setUser={setUser} /></MainLayout>} />
         <Route path="/forgot-password" element={<MainLayout><ForgotPassword /></MainLayout>} />
         <Route path="/otp" element={<MainLayout><OTP /></MainLayout>} />
         <Route path="/new-password" element={<MainLayout><NewPassword /></MainLayout>} />
@@ -37,9 +71,10 @@ function App() {
         <Route path="/funds" element={<MainLayout><OriginOfFunds /></MainLayout>} />
         <Route path="/reasons" element={<MainLayout><Reasons /></MainLayout>} />
         <Route path="/details" element={<MainLayout><ChkDetails /></MainLayout>} />
+        <Route path="*" element={<NotFound />} />
 
         {/* Dashboard (with static sidebar + dynamic content) */}
-        <Route path="/" element={<DashboardLayout />}>
+        <Route path="/" element={<DashboardLayout user={user} error={error} />}>
           <Route path="home" element={<Home />} />
           {/* You can add more dynamic pages here */}
           <Route path="trade" element={<Trade />} />
