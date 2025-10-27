@@ -45,7 +45,7 @@ export default function Login({ setUser }) {
               value={formData.email}
               onChange={handleChange}
               placeholder="johndoe@example.com"
-              className="w-full px-4 py-3 rounded-md bg-black text-white border border-gray-800 outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-200"
+              className="w-full px-4 py-3 rounded-md bg-black text-white text-xs border border-gray-800 outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-200"
               autoComplete="off"
               required
             />
@@ -60,7 +60,7 @@ export default function Login({ setUser }) {
                 value={formData.password}
                 onChange={handleChange}
                 placeholder=". . . . . . . . ."
-                className="w-full px-4 py-3 pr-10 rounded-md bg-black text-white border border-gray-800 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                className="w-full px-4 py-3 pr-10 rounded-md bg-black text-white text-xs border border-gray-800 focus:outline-none focus:ring-2 focus:ring-yellow-500"
                 required
               />
               <button
@@ -76,7 +76,7 @@ export default function Login({ setUser }) {
             </div>
           </div>
 
-          <button className="w-full bg-yellow-500 text-black py-3 rounded-lg mt-6 font-semibold hover:bg-yellow-600 transition cursor-pointer">
+          <button className="w-full bg-yellow-500 text-black text-sm py-3 rounded-lg mt-6 font-semibold hover:bg-yellow-600 transition cursor-pointer">
             Sign In
           </button>
         </form>
